@@ -1,0 +1,12 @@
+name: nginx-ssl-termination-reverse-proxy
+services:
+  proxy:
+    image: nginx:1.25.4
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/certs:/etc/nginx/certs
+    ports:
+      - 443:443
+    # Inspired by https://stackoverflow.com/questions/24319662/from-inside-of-a-docker-container-how-do-i-connect-to-the-localhost-of-the-mach
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
